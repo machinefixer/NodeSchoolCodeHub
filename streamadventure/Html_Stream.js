@@ -1,7 +1,7 @@
 /* These code won't work.
 The problem requires the entire HTML with 
-specifid part transformed as output
-other than the converted part.
+specifid part transformed other than
+the converted part as output.
 */
 
 /*
@@ -20,16 +20,19 @@ var stream = tru.select('.loud').createStream();
 stream.pipe(thr).pipe(stream).pipe(process.stdout); 
 */
 
+/* Better consulting the doc at:
+https://www.npmjs.org/package/trumpet
+*/
+
 var trumpet = require('trumpet');
 var through = require('through');
 var tr = trumpet();
- 
+
 tr.selectAll('.loud', function(elem) {
-    var stream = elem.createStream();
-    stream.pipe(through(function(buf) {
-        this.queue(buf.toString().toUpperCase());
-    }))
-    .pipe(stream);
+	var loud = elem.createStream();
+	loud.pipe(through(function(buf){
+		this.queue(buf.toString().toUpperCase());
+	})).pipe(loud);
 });
- 
+
 process.stdin.pipe(tr).pipe(process.stdout);
