@@ -3,7 +3,7 @@ function getShortMessages(messages) {
 		return x.message.length < 50;
 	}).map(function(x) {
 		return x.message;
-	})
+	});
 }
 
 module.exports = getShortMessages;
