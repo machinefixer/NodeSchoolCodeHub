@@ -1,8 +1,12 @@
-function reduce(arr, fn, initial) {
-	return (function recur(index, value) {
-		if (index > arr.length - 1) return value;
-		return recur(index + 1, fn(value, arr[index], index, arr));
-	})(0, initial);
+function getDependencies(tree, result) {
+	result = result || [];
+	var dependencies = tree.dependencies || [];
+	Object.keys(dependencies).forEach(function(elem) {
+		var s = elem + '@' + tree.dependencies[elem].version;
+		if (result.indexOf(s) === -1) result.push(s);
+		getDependencies(tree.dependencies[elem], result);
+	});
+	return result.sort();
 }
 
-module.exports = reduce;
+module.exports = getDependencies;
