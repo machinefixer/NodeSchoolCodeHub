@@ -3,15 +3,15 @@ var _ = require("lodash");
 var worker = function(item) {
     var result = {hot: [], warm: []};
 
-     _.forEach(item, function(index, value) { //in here, index refers to an entire object
-        if (_.every(index, function(num) {
+     _.forEach(item, function(tempList, city) {
+        if (_.every(tempList, function(num) {
             return num > 19;
         })) {
-            result.hot.push(value);
-        }else if(_.some(index, function(num) {
+            result.hot.push(city);
+        }else if(_.some(tempList, function(num) {
             return num > 19;
         })){
-            result.warm.push(value);
+            result.warm.push(city);
         }
     });
 
